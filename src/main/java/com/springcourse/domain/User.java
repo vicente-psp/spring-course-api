@@ -35,15 +35,10 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Request> requests = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "user")
-//    private List<RequestStage> requestStages = new ArrayList<>();
+    @OneToMany(mappedBy = "owner")
+    private List<Request> requests = new ArrayList<>();
+
+    @OneToMany(mappedBy = "owner")
+    private List<RequestStage> requestStages = new ArrayList<>();
 
 }
-
-
-/* feito teste com outra classe gerada para teste, gerou normalmente a tabela no bd
-só não está gerando essa bendita tabela dessa classe user
-*/
