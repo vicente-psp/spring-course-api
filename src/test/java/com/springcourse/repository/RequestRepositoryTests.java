@@ -67,4 +67,10 @@ public class RequestRepositoryTests {
         assertThat(requestList.size()).isEqualTo(2);
     }
 
+    @Test
+    public void updateStatusTest() {
+        int affectedRows = requestRepository.updateStatus(1L, RequestState.IN_PROGRESS.toString());
+        assertThat(affectedRows).isEqualTo(1L);
+    }
+
 }
