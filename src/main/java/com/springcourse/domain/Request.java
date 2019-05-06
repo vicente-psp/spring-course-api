@@ -15,12 +15,13 @@ import com.springcourse.domain.enums.RequestState;
 @NoArgsConstructor
 @Getter @Setter
 @Entity(name = "tb_request")
+@SequenceGenerator(name = "request_seq", sequenceName = "request_seq", initialValue = 1, allocationSize = 1)
 public class Request implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "request_seq")
     private Long id;
 
     @Column(length = 75, nullable = false)

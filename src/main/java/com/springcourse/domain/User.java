@@ -14,12 +14,13 @@ import com.springcourse.domain.enums.Role;
 @NoArgsConstructor
 @Getter @Setter
 @Entity(name = "tb_user")
+@SequenceGenerator(name = "user_seq", sequenceName = "user_seq", initialValue = 1, allocationSize = 1)
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     private Long id;
 
     @Column(length = 75, nullable = false)
