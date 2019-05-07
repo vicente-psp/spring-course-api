@@ -17,5 +17,5 @@ public class HashUtilTests {
 
         assertThat(hash.length()).isEqualTo(64);
     }
-    
+
 }
