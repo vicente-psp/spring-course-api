@@ -2,6 +2,7 @@ package com.springcourse.service;
 
 import com.springcourse.domain.Request;
 import com.springcourse.domain.enums.RequestState;
+import com.springcourse.exception.NotFoundException;
 import com.springcourse.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class RequestService {
 
     public Request getById(Long id) {
         Optional<Request> requestOptional = requestRepository.findById(id);
-        return requestOptional.get();
+        return requestOptional.orElseThrow(() -> new NotFoundException("Não existe usuário para o id " + id));
     }
 
     public List<Request> listAll() {
