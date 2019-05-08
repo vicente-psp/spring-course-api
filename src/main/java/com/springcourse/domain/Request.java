@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import com.springcourse.domain.enums.RequestState;
@@ -42,6 +43,7 @@ public class Request implements Serializable {
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
+    @Getter(onMethod = @__({@JsonIgnore}))
     @OneToMany(mappedBy = "request")
     private List<RequestStage> requestStages = new ArrayList<>();
 
