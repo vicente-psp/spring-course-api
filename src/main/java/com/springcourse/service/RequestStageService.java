@@ -1,6 +1,7 @@
 package com.springcourse.service;
 
 import com.springcourse.domain.RequestStage;
+import com.springcourse.exception.NotFoundException;
 import com.springcourse.repository.RequestRepository;
 import com.springcourse.repository.RequestStageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class RequestStageService {
 
     public RequestStage getById(Long id) {
         Optional<RequestStage> requestStageOptional = requestStageRepository.findById(id);
-        return requestStageOptional.get();
+        return requestStageOptional.orElseThrow(() -> new NotFoundException("Não existe pedido para o id " + id));
     }
 
     public List<RequestStage> listAllByRequestId(Long requestId) {
