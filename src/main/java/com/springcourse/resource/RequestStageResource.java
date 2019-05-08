@@ -1,7 +1,6 @@
 package com.springcourse.resource;
 
 import com.springcourse.domain.RequestStage;
-import com.springcourse.service.RequestService;
 import com.springcourse.service.RequestStageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(name = "request-stage")
+@RequestMapping(value = "request-stages")
 public class RequestStageResource {
 
     @Autowired private RequestStageService requestStageService;
