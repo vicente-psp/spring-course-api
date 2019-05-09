@@ -2,6 +2,8 @@ package com.springcourse.resource;
 
 import com.springcourse.domain.Request;
 import com.springcourse.domain.RequestStage;
+import com.springcourse.model.PageModel;
+import com.springcourse.model.PageRequestModel;
 import com.springcourse.service.RequestService;
 import com.springcourse.service.RequestStageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,15 +40,21 @@ public class RequestResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<Request>> listAll() {
-        List<Request> requests = requestService.listAll();
-        return ResponseEntity.ok(requests);
+    public ResponseEntity<PageModel<Request>> listAll(@RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
+        PageRequestModel pageRequestModel = new PageRequestModel(page, size);
+        PageModel<Request> requestPageModel = requestService.listAllOnLazyMode(pageRequestModel);
+
+        return ResponseEntity.ok(requestPageModel);
     }
 
     @GetMapping("/{id}/request-stages")
-    public ResponseEntity<List<RequestStage>> listAllRequestStageByRequestId(@PathVariable Long id) {
-        List<RequestStage> requestStages = requestStageService.listAllByRequestId(id);
-        return ResponseEntity.ok(requestStages);
+    public ResponseEntity<PageModel<RequestStage>> listAllRequestStageByRequestId(@PathVariable Long id,
+                          @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
+        PageRequestModel pageRequestModel = new PageRequestModel(page, size);
+
+        PageModel<RequestStage> pageModel = requestStageService.listAllByRequestIdOnLazyMode(id, pageRequestModel);
+
+        return ResponseEntity.ok(pageModel);
     }
 
 }
