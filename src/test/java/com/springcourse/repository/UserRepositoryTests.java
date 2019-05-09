@@ -62,4 +62,11 @@ public class UserRepositoryTests {
         assertThat(user.getId()).isEqualTo(1L);
     }
 
+    @Test
+    public void updateTeste() {
+        int affectedRows = userRepository.updateRole(1L, Role.SIMPLE);
+
+        assertThat(affectedRows).isEqualTo(1);
+    }
+
 }

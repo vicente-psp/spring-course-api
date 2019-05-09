@@ -2,6 +2,7 @@ package com.springcourse.repository;
 
 import java.util.List;
 
+import com.springcourse.domain.enums.RequestState;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +23,6 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     @Transactional(readOnly = false)
     @Modifying
     @Query("UPDATE tb_request SET request_state = ?2 WHERE id = ?1")
-    int updateStatus(Long id, String state);
+    int updateStatus(Long id, RequestState state);
 
 }
