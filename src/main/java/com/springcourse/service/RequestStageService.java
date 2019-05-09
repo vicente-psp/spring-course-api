@@ -2,9 +2,14 @@ package com.springcourse.service;
 
 import com.springcourse.domain.RequestStage;
 import com.springcourse.exception.NotFoundException;
+import com.springcourse.model.PageModel;
+import com.springcourse.model.PageRequestModel;
 import com.springcourse.repository.RequestRepository;
 import com.springcourse.repository.RequestStageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -40,6 +45,16 @@ public class RequestStageService {
     public List<RequestStage> listAllByRequestId(Long requestId) {
         List<RequestStage> requestStages = requestStageRepository.findAllByRequestId(requestId);
         return requestStages;
+    }
+
+    public PageModel<RequestStage> listAllByRequestIdOnLazyMode(Long ownerId, PageRequestModel pageRequestModel) {
+        Pageable pageable = PageRequest.of(pageRequestModel.getPage(), pageRequestModel.getSize());
+
+        Page<RequestStage> page = requestStageRepository.findAllByRequestId(ownerId, pageable);
+
+        PageModel<RequestStage> pageModel = new PageModel<>((int) page.getTotalElements(), page.getSize(), page.getTotalPages(), page.getContent());
+
+        return pageModel;
     }
     
 }
