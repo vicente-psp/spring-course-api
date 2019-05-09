@@ -12,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(value = "users")
 public class UserResource {
@@ -41,7 +39,8 @@ public class UserResource {
     }
 
     @GetMapping
-    public ResponseEntity<PageModel<User>> listAll(@RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
+    public ResponseEntity<PageModel<User>> listAll(
+            @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
         PageRequestModel pageRequestModel = new PageRequestModel(page, size);
         PageModel<User> userPageModel = userService.listAllOnLazyMode(pageRequestModel);
 
@@ -56,7 +55,7 @@ public class UserResource {
 
     @GetMapping("/{id}/requests")
     public ResponseEntity<PageModel<Request>> listAllRequestByUserId(@PathVariable Long id,
-                     @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
+                     @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
         PageRequestModel pageRequestModel = new PageRequestModel(page, size);
 
         PageModel<Request> requestPageModel = requestService.listAllByOwnerIdOnLazyMode(id, pageRequestModel);
