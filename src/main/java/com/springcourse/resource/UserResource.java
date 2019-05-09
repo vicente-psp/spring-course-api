@@ -3,6 +3,8 @@ package com.springcourse.resource;
 import com.springcourse.domain.Request;
 import com.springcourse.domain.User;
 import com.springcourse.dto.UserLoginDto;
+import com.springcourse.model.PageModel;
+import com.springcourse.model.PageRequestModel;
 import com.springcourse.service.RequestService;
 import com.springcourse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +41,11 @@ public class UserResource {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> listAll() {
-        List<User> users = userService.listAll();
-        return ResponseEntity.ok(users);
+    public ResponseEntity<PageModel<User>> listAll(@RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
+        PageRequestModel pageRequestModel = new PageRequestModel(page, size);
+        PageModel<User> userPageModel = userService.listAllOnLazyMode(pageRequestModel);
+
+        return ResponseEntity.ok(userPageModel);
     }
 
     @PostMapping("/login")
@@ -51,9 +55,13 @@ public class UserResource {
     }
 
     @GetMapping("/{id}/requests")
-    public ResponseEntity<List<Request>> listAllRequestByUserId(@PathVariable Long id) {
-        List<Request> requests = requestService.listAllByOwnerId(id);
-        return ResponseEntity.ok(requests);
+    public ResponseEntity<PageModel<Request>> listAllRequestByUserId(@PathVariable Long id,
+                     @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
+        PageRequestModel pageRequestModel = new PageRequestModel(page, size);
+
+        PageModel<Request> requestPageModel = requestService.listAllByOwnerIdOnLazyMode(id, pageRequestModel);
+
+        return ResponseEntity.ok(requestPageModel);
     }
 
 }
