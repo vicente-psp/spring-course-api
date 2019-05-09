@@ -2,6 +2,8 @@ package com.springcourse.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,6 +16,8 @@ import com.springcourse.domain.Request;
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
     List<Request> findAllByOwnerId(Long id);
+
+    Page<Request> findAllByOwnerId(Long id, Pageable pageable);
 
     @Transactional(readOnly = false)
     @Modifying
