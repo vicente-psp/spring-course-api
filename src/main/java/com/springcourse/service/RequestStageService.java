@@ -27,7 +27,7 @@ public class RequestStageService {
         requestStage.setRealizationDate(new Date());
         RequestStage requestStageCreated = requestStageRepository.save(requestStage);
 
-        requestRepository.updateStatus(requestStage.getRequest().getId(), requestStage.getRequestState().toString());
+        requestRepository.updateStatus(requestStage.getRequest().getId(), requestStage.getRequestState());
 
         return requestStageCreated;
     }
