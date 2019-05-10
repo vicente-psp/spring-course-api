@@ -28,8 +28,8 @@ public class RequestStageRepositoryTests {
     @Test
     public void aSaveTest() {
         RequestStage requestStage = new RequestStage(null, new Date(), "Foi comprado novo laptop de marca HD",
-//                RequestState.CLOSED, new Request(1L, null, null, null, null, null, null),
-                RequestState.CLOSED, new Request(1L, null, null, null, null, null),
+                RequestState.CLOSED, new Request(1L, null, null, null, null, null, null),
+//                RequestState.CLOSED, new Request(1L, null, null, null, null, null),
                 new User(1L, null, null, null, null, null, null));
 
         RequestStage requestStageCreated = requestStageRepository.save(requestStage);
