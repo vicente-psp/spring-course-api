@@ -31,9 +31,9 @@ public class Request implements Serializable {
     @Column(columnDefinition = "text")
     private String description;
 
-    @Column(name = "creation_date", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date creationDate;
+//    @Column(name = "creation_date", updatable = false)
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date creationDate;
 
     @Column(name = "request_state", length = 20, nullable = false)
     @Enumerated(EnumType.STRING)

@@ -23,7 +23,7 @@ public class RequestService {
 
     public Request save(Request request) {
         request.setRequestState(RequestState.OPEN);
-        request.setCreationDate(new Date());
+//        request.setCreationDate(new Date());
         Request requestCreated = requestRepository.save(request);
         return requestCreated;
     }

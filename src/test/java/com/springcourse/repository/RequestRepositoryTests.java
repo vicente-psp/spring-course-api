@@ -29,7 +29,8 @@ public class RequestRepositoryTests {
         User owner = new User();
         owner.setId(1L);
 
-        Request request = new Request(null, "Novo Laptop HP 106", "Pretendo obter um laptop", new Date(), RequestState.OPEN, owner, null);
+//        Request request = new Request(null, "Novo Laptop HP 106", "Pretendo obter um laptop", new Date(), RequestState.OPEN, owner, null);
+        Request request = new Request(null, "Novo Laptop HP 106", "Pretendo obter um laptop", RequestState.OPEN, owner, null);
         Request createdRequest = requestRepository.save(request);
 
         assertThat(createdRequest.getId()).isEqualTo(1L);
@@ -69,7 +70,7 @@ public class RequestRepositoryTests {
 
     @Test
     public void updateStatusTest() {
-        int affectedRows = requestRepository.updateStatus(1L, RequestState.IN_PROGRESS);
+        int affectedRows = requestRepository.updateStatus(1L, RequestState.IN_PROGRESS.toString());
         assertThat(affectedRows).isEqualTo(1L);
     }
 
