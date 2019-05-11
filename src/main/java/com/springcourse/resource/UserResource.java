@@ -3,6 +3,7 @@ package com.springcourse.resource;
 import com.springcourse.domain.Request;
 import com.springcourse.domain.User;
 import com.springcourse.dto.UserLoginDto;
+import com.springcourse.dto.UserUpdateRoleDto;
 import com.springcourse.model.PageModel;
 import com.springcourse.model.PageRequestModel;
 import com.springcourse.service.RequestService;
@@ -11,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "users")
@@ -41,7 +40,8 @@ public class UserResource {
     }
 
     @GetMapping
-    public ResponseEntity<PageModel<User>> listAll(@RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
+    public ResponseEntity<PageModel<User>> listAll(
+            @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
         PageRequestModel pageRequestModel = new PageRequestModel(page, size);
         PageModel<User> userPageModel = userService.listAllOnLazyMode(pageRequestModel);
 
@@ -56,12 +56,23 @@ public class UserResource {
 
     @GetMapping("/{id}/requests")
     public ResponseEntity<PageModel<Request>> listAllRequestByUserId(@PathVariable Long id,
-                     @RequestParam(value = "page") int page, @RequestParam(value = "size") int size) {
+                     @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
         PageRequestModel pageRequestModel = new PageRequestModel(page, size);
 
         PageModel<Request> requestPageModel = requestService.listAllByOwnerIdOnLazyMode(id, pageRequestModel);
 
         return ResponseEntity.ok(requestPageModel);
+    }
+
+    @PatchMapping("/role/{id}")
+    public ResponseEntity<?> updateRole(@RequestBody UserUpdateRoleDto userDto, @PathVariable Long id) {
+        User user = new User();
+        user.setId(id);
+        user.setRole(userDto.getRole());
+
+        userService.updateRole(user);
+
+        return ResponseEntity.ok().build();
     }
 
 }

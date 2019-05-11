@@ -22,7 +22,7 @@ public class RequestService {
     @Autowired private RequestRepository requestRepository;
 
     public Request save(Request request) {
-        request.setRequestState(RequestState.OPEN);
+        request.setState(RequestState.OPEN);
         request.setCreationDate(new Date());
         Request requestCreated = requestRepository.save(request);
         return requestCreated;

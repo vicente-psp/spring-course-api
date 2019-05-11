@@ -31,13 +31,13 @@ public class Request implements Serializable {
     @Column(columnDefinition = "text")
     private String description;
 
-    @Column(name = "creation_date", nullable = false, updatable = false)
+    @Column(name = "creation_date", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
-    @Column(name = "request_state", length = 12, nullable = false)
+    @Column(length = 12, nullable = false)
     @Enumerated(EnumType.STRING)
-    private RequestState requestState;
+    private RequestState state;
 
     @ManyToOne
     @JoinColumn(name = "owner_id", nullable = false)
