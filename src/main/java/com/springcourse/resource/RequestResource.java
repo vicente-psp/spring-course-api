@@ -69,7 +69,7 @@ public class RequestResource {
         request.setId(id);
         request.setState(requestUpdateStateDto.getState());
 
-        requestService.updateRole(request);
+        requestService.updateState(request);
 
         return ResponseEntity.ok().build();
     }
