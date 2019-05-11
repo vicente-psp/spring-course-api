@@ -67,4 +67,8 @@ public class RequestService {
         return pageModel;
     }
 
+    public int updateState(Request request) {
+        return requestRepository.updateStatus(request.getId(), request.getState());
+    }
+
 }
