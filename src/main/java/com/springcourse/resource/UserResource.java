@@ -3,6 +3,8 @@ package com.springcourse.resource;
 import com.springcourse.domain.Request;
 import com.springcourse.domain.User;
 import com.springcourse.dto.UserLoginDto;
+import com.springcourse.dto.UserSaveDto;
+import com.springcourse.dto.UserUpdateDto;
 import com.springcourse.dto.UserUpdateRoleDto;
 import com.springcourse.model.PageModel;
 import com.springcourse.model.PageRequestModel;
@@ -23,13 +25,15 @@ public class UserResource {
     @Autowired private RequestService requestService;
 
     @PostMapping
-    public ResponseEntity<User> save(@RequestBody User user) {
+    public ResponseEntity<User> save(@RequestBody @Valid UserSaveDto userSaveDto) {
+        User user = userSaveDto.transformToUser();
         User userCreated = userService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(userCreated);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody @Valid UserUpdateDto userUpdateDto) {
+        User user = userUpdateDto.transformToUser();
         user.setId(id);
         User userUpdated = userService.update(user);
         return ResponseEntity.ok(userUpdated);
@@ -67,7 +71,7 @@ public class UserResource {
     }
 
     @PatchMapping("/role/{id}")
-    public ResponseEntity<?> updateRole(@RequestBody UserUpdateRoleDto userDto, @PathVariable Long id) {
+    public ResponseEntity<?> updateRole(@RequestBody @Valid UserUpdateRoleDto userDto, @PathVariable Long id) {
         User user = new User();
         user.setId(id);
         user.setRole(userDto.getRole());
