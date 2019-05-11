@@ -32,7 +32,7 @@ public class RequestSaveDto {
     private List<RequestStage> requestStages = new ArrayList<>();
 
     public Request transformToRequest() {
-        return new Request(null, this.subject, this.description, new Date(), RequestState.OPEN, this.owner, this.requestStages);
+        return new Request(null, this.subject, this.description, null, null, this.owner, this.requestStages);
     }
 
 }
