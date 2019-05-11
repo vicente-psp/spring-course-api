@@ -35,7 +35,7 @@ public class Request implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
-    @Column(length = 12, nullable = false)
+    @Column(length = 12, nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)
     private RequestState state;
 
